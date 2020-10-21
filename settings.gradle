@@ -1,0 +1,4 @@
+include ':app'
+rootProject.name = "BinderTest"
+include ':corelibrary'
+project(':corelibrary').projectDir = new File(settingsDir, '../commonmodule/corelibrary')

@@ -1,4 +1,4 @@
-package per.cxd.bindertest.ui.slideshow;
+package pers.cxd.bindertest.ui.slideshow;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import per.cxd.bindertest.R;
+import pers.cxd.bindertest.R;
 
 public class SlideshowFragment extends Fragment {
 

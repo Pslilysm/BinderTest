@@ -1,4 +1,4 @@
-package per.cxd.bindertest;
+package pers.cxd.bindertest;
 
 import android.graphics.Bitmap;
 import android.os.Binder;

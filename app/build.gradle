@@ -9,7 +9,7 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        applicationId "per.cxd.bindertest"
+        applicationId "pers.cxd.bindertest"
 
         versionCode 100
         versionName "1.0.0"

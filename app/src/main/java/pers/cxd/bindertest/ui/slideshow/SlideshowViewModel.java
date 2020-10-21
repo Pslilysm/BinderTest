@@ -1,4 +1,4 @@
-package per.cxd.bindertest.ui.slideshow;
+package pers.cxd.bindertest.ui.slideshow;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="per.cxd.bindertest.ui.home.HomeFragment"
+        android:name="pers.cxd.bindertest.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="per.cxd.bindertest.ui.gallery.GalleryFragment"
+        android:name="pers.cxd.bindertest.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="per.cxd.bindertest.ui.slideshow.SlideshowFragment"
+        android:name="pers.cxd.bindertest.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>

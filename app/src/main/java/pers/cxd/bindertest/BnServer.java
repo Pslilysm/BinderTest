@@ -4,16 +4,12 @@ import android.graphics.Bitmap;
 import android.os.RemoteException;
 
 import pers.cxd.corelibrary.Log;
-import pers.cxd.corelibrary.SingletonManager;
+import pers.cxd.corelibrary.SingletonFactory;
 
 public class BnServer extends IServer.Stub{
 
     public static BnServer getInstance(){
-        return SingletonManager.getInstance(BnServer.class);
-    }
-
-    private BnServer() {
-        super();
+        return SingletonFactory.findOrCreate(BnServer.class);
     }
 
     private final String TAG = Log.TAG + BnServer.class.getSimpleName();
@@ -30,6 +26,7 @@ public class BnServer extends IServer.Stub{
         if (mListener != null){
             mListener.onUploadImage(bitmap);
         }
+        client.onUploadImageCallback(0,"success");
     }
 
     interface OnClientUploadImageListener{

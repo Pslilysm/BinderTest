@@ -33,8 +33,9 @@ public class SecondActivity extends AppCompatActivity {
         try {
             bis = new BufferedInputStream(new FileInputStream(imgFile));
             Bitmap bm = BitmapFactory.decodeStream(bis);
-            Log.i(TAG, "onCreate: bm = " + bm);
+            Log.i(TAG, "onCreate: bm = " + bm.getByteCount());
             proxy.uploadImage(bm, BnClient.getInstance());
+            bm.recycle();
         } catch (FileNotFoundException | RemoteException e) {
             e.printStackTrace();
         }finally {

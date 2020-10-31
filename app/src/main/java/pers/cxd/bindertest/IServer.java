@@ -10,17 +10,22 @@ import android.os.RemoteException;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import pers.cxd.corelibrary.Log;
+
+import static android.os.IBinder.FIRST_CALL_TRANSACTION;
+
 public interface IServer extends IInterface {
 
     void uploadImage(Bitmap bitmap, IClient client) throws RemoteException;
 
+    String TAG = Log.TAG + IServer.class.getSimpleName();
+    String DESCRIPTOR = "per.cxd.bindertest.IServer";
+    int UPLOAD_IMAGE_TRANSACTION_CODE = FIRST_CALL_TRANSACTION + 1;
+
     abstract class Stub extends Binder implements IServer {
 
-        public static final String DESCRIPTOR = "per.cxd.bindertest.IServer";
-
-        private static final int UPLOAD_IMAGE_TRANSACTION_CODE = FIRST_CALL_TRANSACTION + 1;
-
-        protected Stub(){
+        public Stub(){
+            super();
             attachInterface(this, DESCRIPTOR);
         }
 
@@ -50,12 +55,16 @@ public interface IServer extends IInterface {
                     data.enforceInterface(DESCRIPTOR);
                     Bitmap bitmap = data.readParcelable(ClassLoader.getSystemClassLoader());
                     if (bitmap == null){
-                        reply.writeException(new NullPointerException("bitmap is null"));
+                        if (reply != null){
+                            reply.writeException(new NullPointerException("bitmap is null"));
+                        }
                     }else {
+                        Log.i(TAG, "onTransact: " + data.dataCapacity() + " bm " + bitmap.getByteCount());
                         IBinder iBinder = data.readStrongBinder();
                         this.uploadImage(bitmap, IClient.Stub.asInterface(iBinder));
-//                        bitmap.recycle();
-                        reply.writeNoException();
+                        if (reply != null){
+                            reply.writeNoException();
+                        }
                     }
                     return true;
                 default:
@@ -84,7 +93,6 @@ public interface IServer extends IInterface {
                 }finally {
                     _data.recycle();
                     _reply.recycle();
-                    bitmap.recycle();
                 }
             }
 

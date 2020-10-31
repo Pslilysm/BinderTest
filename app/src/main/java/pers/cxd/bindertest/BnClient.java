@@ -3,12 +3,12 @@ package pers.cxd.bindertest;
 import android.os.RemoteException;
 
 import pers.cxd.corelibrary.Log;
-import pers.cxd.corelibrary.SingletonManager;
+import pers.cxd.corelibrary.SingletonFactory;
 
 public class BnClient extends IClient.Stub {
 
     public static BnClient getInstance(){
-        return SingletonManager.getInstance(BnClient.class);
+        return SingletonFactory.findOrCreate(BnClient.class);
     }
 
     private final String TAG = Log.TAG + BnClient.class.getSimpleName();

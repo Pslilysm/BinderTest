@@ -9,14 +9,21 @@ import android.os.RemoteException;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import static android.os.IBinder.FIRST_CALL_TRANSACTION;
+
 public interface IClient extends IInterface {
 
     void onUploadImageCallback(int code, String msg) throws RemoteException;
 
+    String DESCRIPTOR = "per.cxd.bindertest.IClient";
+    int ON_UPLOAD_IMAGE_CALLBACK_TRANSACTION = FIRST_CALL_TRANSACTION + 1;
+
     abstract class Stub extends Binder implements IClient {
 
-        private static final String DESCRIPTOR = "per.cxd.bindertest.IClient";
-        private static final int ON_UPLOAD_IMAGE_CALLBACK_TRANSACTION = FIRST_CALL_TRANSACTION + 1;
+        public Stub(){
+            super();
+            attachInterface(this, DESCRIPTOR);
+        }
 
         @Nullable
         @Override
@@ -45,7 +52,9 @@ public interface IClient extends IInterface {
                     int _code = data.readInt();
                     String _msg = data.readString();
                     this.onUploadImageCallback(_code, _msg);
-                    reply.writeNoException();
+                    if (reply != null){
+                        reply.writeNoException();
+                    }
                     return true;
                 default:
                     return super.onTransact(code, data, reply, flags);

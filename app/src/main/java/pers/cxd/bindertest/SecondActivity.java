@@ -25,7 +25,7 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         Bundle bundle = getIntent().getBundleExtra(Bundle.class.getSimpleName());
-        IBinder bp = bundle.getBinder(IServer.Stub.DESCRIPTOR);
+        IBinder bp = bundle.getBinder(IServer.DESCRIPTOR);
         IServer proxy = IServer.Stub.asInterface(bp);
         Log.i(TAG, "onCreate: bp " + bp + " proxy = " + proxy);
         File imgFile = new File("/sdcard/DCIM/Camera/IMG20200820154355.jpg");

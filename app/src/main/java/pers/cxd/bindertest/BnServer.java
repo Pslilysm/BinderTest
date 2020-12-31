@@ -1,6 +1,7 @@
 package pers.cxd.bindertest;
 
 import android.graphics.Bitmap;
+import android.os.Binder;
 import android.os.RemoteException;
 
 import pers.cxd.corelibrary.Log;
@@ -23,6 +24,7 @@ public class BnServer extends IServer.Stub{
     @Override
     public void uploadImage(Bitmap bitmap, IClient client) throws RemoteException {
         Log.d(TAG, "uploadImage() called with: bitmap = [" + bitmap + "], client = [" + client + "]");
+        android.util.Log.i(TAG, "uploadImage: " + Binder.getCallingPid());
         if (mListener != null){
             mListener.onUploadImage(bitmap);
         }

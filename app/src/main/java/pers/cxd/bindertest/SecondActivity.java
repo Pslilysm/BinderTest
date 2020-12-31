@@ -30,13 +30,12 @@ public class SecondActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate: bp " + bp + " proxy = " + proxy);
         File imgFile = new File("/sdcard/DCIM/Camera/IMG20200820154355.jpg");
         BufferedInputStream bis = null;
+        Bitmap bm = null;
         try {
             bis = new BufferedInputStream(new FileInputStream(imgFile));
-            Bitmap bm = BitmapFactory.decodeStream(bis);
+            bm = BitmapFactory.decodeStream(bis);
             Log.i(TAG, "onCreate: bm = " + bm.getByteCount());
-            proxy.uploadImage(bm, BnClient.getInstance());
-            bm.recycle();
-        } catch (FileNotFoundException | RemoteException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }finally {
             if (bis != null){
@@ -46,6 +45,11 @@ public class SecondActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+        }
+        try {
+            proxy.uploadImage(bm, BnClient.getInstance());
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
     }
 

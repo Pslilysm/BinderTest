@@ -13,6 +13,10 @@ public class BnServer extends IServer.Stub{
         return SingletonFactory.findOrCreate(BnServer.class);
     }
 
+    private BnServer(){
+        android.util.Log.i(TAG, "BnServer: " + this);
+    }
+
     private final String TAG = Log.TAG + BnServer.class.getSimpleName();
 
     private OnClientUploadImageListener mListener;
@@ -29,6 +33,11 @@ public class BnServer extends IServer.Stub{
             mListener.onUploadImage(bitmap);
         }
         client.onUploadImageCallback(0,"success");
+    }
+
+    @Override
+    public void testWriteBpBinder(IServer iServer) throws RemoteException {
+        android.util.Log.d(TAG, "testWriteBpBinder() called with: iServer = [" + iServer + "]");
     }
 
     interface OnClientUploadImageListener{

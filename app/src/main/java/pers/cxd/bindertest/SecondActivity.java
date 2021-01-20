@@ -46,8 +46,13 @@ public class SecondActivity extends AppCompatActivity {
                 }
             }
         }
+//        try {
+//            proxy.uploadImage(bm, BnClient.getInstance());
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
         try {
-            proxy.uploadImage(bm, BnClient.getInstance());
+            proxy.testWriteBpBinder(proxy);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

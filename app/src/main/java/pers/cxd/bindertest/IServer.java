@@ -17,10 +17,12 @@ import static android.os.IBinder.FIRST_CALL_TRANSACTION;
 public interface IServer extends IInterface {
 
     void uploadImage(Bitmap bitmap, IClient client) throws RemoteException;
+    void testWriteBpBinder(IServer iServer) throws RemoteException;
 
     String TAG = Log.TAG + IServer.class.getSimpleName();
     String DESCRIPTOR = "per.cxd.bindertest.IServer";
     int UPLOAD_IMAGE_TRANSACTION_CODE = FIRST_CALL_TRANSACTION + 1;
+    int TEST_WRITE_BP_BINDER_TRANSACTION_CODE = FIRST_CALL_TRANSACTION + 2;
 
     abstract class Stub extends Binder implements IServer {
 
@@ -67,6 +69,13 @@ public interface IServer extends IInterface {
                         }
                     }
                     return true;
+                case TEST_WRITE_BP_BINDER_TRANSACTION_CODE:
+                    data.enforceInterface(DESCRIPTOR);
+                    IBinder binder = data.readStrongBinder();
+                    this.testWriteBpBinder(IServer.Stub.asInterface(binder));
+                    if (reply != null){
+                        reply.writeNoException();
+                    }
                 default:
                     return super.onTransact(code, data, reply, flags);
             }
@@ -89,6 +98,21 @@ public interface IServer extends IInterface {
                     _data.writeParcelable(bitmap, 0);
                     _data.writeStrongBinder(binder.asBinder());
                     mRemote.transact(UPLOAD_IMAGE_TRANSACTION_CODE, _data, _reply, 0);
+                    _reply.readException();
+                }finally {
+                    _data.recycle();
+                    _reply.recycle();
+                }
+            }
+
+            @Override
+            public void testWriteBpBinder(IServer iServer) throws RemoteException {
+                Parcel _data = Parcel.obtain();
+                Parcel _reply = Parcel.obtain();
+                try{
+                    _data.writeInterfaceToken(DESCRIPTOR);
+                    _data.writeStrongBinder(iServer.asBinder());
+                    mRemote.transact(TEST_WRITE_BP_BINDER_TRANSACTION_CODE, _data, _reply, 0);
                     _reply.readException();
                 }finally {
                     _data.recycle();
